@@ -2,7 +2,7 @@ import { Component } from "react";
 import Section from "components/Section/Section";
 import {Container} from "./App.styled";
 import  {ContactList}  from "components/ContactList/ContactList";
-import { FormPhone } from "components/FormPhone/FormPhone";
+import { Phonebook } from "components/Phonebook/Phonebook";
 
 class App extends Component {
   state = {
@@ -46,7 +46,7 @@ deleteContact = contactId => {
     return(
       <Container>
         <Section title="Phonebook">
-          <FormPhone onSubmit={this.addContact}></FormPhone>
+          <Phonebook onSubmit={this.addContact}></Phonebook>
         </Section>
         <Section title="Contacts">
           <ContactList onDeleteContact={this.deleteContact}></ContactList>

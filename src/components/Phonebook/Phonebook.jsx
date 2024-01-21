@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Label, FormPhone, Input, Button } from "./FormPhone.styled";
+import { Label, Form, Input, Button } from "./Phonebook.styled";
 
-export class FormPhone extends Component {
+export class Phonebook extends Component {
     state = {
         name: '',
         numver: '',
@@ -31,7 +31,7 @@ export class FormPhone extends Component {
         return (
             <div>
               {/* Форма для введення імені контакту */}
-              <FormPhone onSubmit={this.handleSubmit}>
+              <Form onSubmit={this.handleSubmit}>
                 <Label>
                   Name
                   <Input
@@ -57,7 +57,7 @@ export class FormPhone extends Component {
                 <Button type="submit">
                   Add contact 
                 </Button>
-              </FormPhone>
+              </Form>
             </div>
           );
      };
