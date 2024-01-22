@@ -24,6 +24,8 @@ export class Phonebook extends Component {
     reset =() => {
         this.setState({name: '', number: ''});
     };
+
+
 //рендер вихідної розмітки форми
     render() {
 //деструктуризація 
@@ -48,7 +50,6 @@ export class Phonebook extends Component {
                     type="tel"
                     name="number"
                     value={number}
-                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
                     onChange={this.handleNameChange}/>

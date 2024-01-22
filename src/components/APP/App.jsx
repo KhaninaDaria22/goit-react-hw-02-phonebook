@@ -3,6 +3,8 @@ import Section from "components/Section/Section";
 import {Container} from "./App.styled";
 import  {ContactList}  from "components/ContactList/ContactList";
 import { Phonebook } from "components/Phonebook/Phonebook";
+import {Filter} from "components/Filter/Filter";
+import { nanoid } from 'nanoid'
 
 class App extends Component {
   state = {
@@ -18,6 +20,7 @@ class App extends Component {
 addContact = (name, number) => {
   const {contacts} =this.state;
   const contact = {
+    id: nanoid(),
     name,
     number,
   };
@@ -31,7 +34,7 @@ addContact = (name, number) => {
     return;
   }
 
-  this.setState(({contacts}) =>({contact:[contact, ...contacts]}));
+  this.setState(({contacts}) =>({contacts:[contact, ...contacts]}));
 };
 
 //метод для видалення контактів, який передамо в контакт ліст у якості пропсві, щоб видалити контакт
@@ -42,14 +45,32 @@ deleteContact = contactId => {
   }));
 }
 
+ //створюємо метод для фільтрації контактів, коли вводимо в інпут значення то відбувається фільтрація і виводяться тільки ті контакти в яких є введені значення
+ changeFilter = e => {
+  this.setState({ filter: e.currentTarget.value });
+};
+
+//створємо метод для фільтрації контактів відповідно до введених значень в інпут
+getFilteredContacts = () => {
+  const { filter, contacts } = this.state;
+  const normalizedFilter = filter.toLowerCase();
+
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
+};
+
   render() {
+    const filteredContacts = this.getFilteredContacts();
     return(
       <Container>
         <Section title="Phonebook">
           <Phonebook onSubmit={this.addContact}></Phonebook>
         </Section>
         <Section title="Contacts">
-          <ContactList onDeleteContact={this.deleteContact}></ContactList>
+          <Filter value={this.filter} onChange={this.changeFilter}> </Filter>
+          <ContactList
+           onDeleteContact={this.deleteContact} contacts={filteredContacts}></ContactList>
         </Section>
       </Container>
     )
@@ -60,24 +81,4 @@ deleteContact = contactId => {
 export default App;
 
 
-
-
-
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
 
